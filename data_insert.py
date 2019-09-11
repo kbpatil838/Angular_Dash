@@ -20,11 +20,21 @@ def insert(root):
         temp_data = xmltodict.parse(xml_data)
         data = json.dumps(temp_data)
         output = json.loads(data)
-        test_data = curr.find({"data": output})
-        if test_data is not None:
-            pass
-        else:
+        time_1 = output["robot"]["suite"]["status"]["@starttime"]
+        test_data = curr.find({"date": x})
+        l1 = [i['data'] for i in test_data]
+        if len(l1) == 0:
             curr.insert({"date": x, "data": output})
+            print("data inserted for null")
+        else:
+            time_2 = []
+            for j in l1:
+                time_2.append(j["robot"]["suite"]["status"]["@starttime"])
+            if time_1 not in time_2:
+                curr.insert({"date": x, "data": output})
+                print("data inserted")
+            else:
+                print("data already exist")
 
     except Exception as e:
         print(e)
@@ -32,4 +42,4 @@ def insert(root):
 
 while 1:
     insert(sys.argv[1])
-    time.sleep(20)
+    time.sleep(30)
