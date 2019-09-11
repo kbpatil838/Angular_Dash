@@ -17,11 +17,10 @@ def insert(root):
         fxml = open(data, 'r')
         xml_data = fxml.read()
         fxml.close()
-        # os.remove(data)
         temp_data = xmltodict.parse(xml_data)
         data = json.dumps(temp_data)
         output = json.loads(data)
-        test_data = curr.find_one({"data": output})
+        test_data = curr.find({"data": output})
         if test_data is not None:
             pass
         else:
@@ -29,9 +28,8 @@ def insert(root):
 
     except Exception as e:
         print(e)
-        # sys.exit(1)
 
 
 while 1:
     insert(sys.argv[1])
-    time.sleep(10)
+    time.sleep(20)

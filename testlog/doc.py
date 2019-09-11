@@ -2,6 +2,7 @@ import datetime
 from testlog import curr
 
 x = datetime.datetime.now().strftime("%Y%m%d")
+
 #y = datetime.datetime.now().strftime(":%H:%M:%S")
 #dir = sys.argv[1]
 
@@ -31,8 +32,8 @@ x = datetime.datetime.now().strftime("%Y%m%d")
 
 
 def data_extract():
-    output1 = curr.find({}, {"date": x, "_id": 0, "date": 0})
-    l1 = [i for i in output1]
+    output1 = curr.find({"date": x})
+    l1 = [i['data'] for i in output1]
     print(len(l1))
     return l1
 
@@ -42,20 +43,20 @@ def get_count():
     c_fail = 0
     c_criti = 0
     test_count = []
-    output1 = curr.find({}, {"date": x, "_id": 0, "date": 0})
-    l1 = [i for i in output1]
+    output1 = curr.find({"date": x})
+    l1 = [i['data'] for i in output1]
     for i in l1:
-        name = i['data']['robot']['suite']['@name']
-        data2 = i['data']['robot']['statistics']['suite']['stat']
+        name = i['robot']['suite']['@name']
+        data2 = i['robot']['statistics']['suite']['stat']
         c_pass += int(data2['@pass'])
         c_fail += int(data2['@fail'])
-        data = i['data']['robot']['suite']['test']
+        data = i['robot']['suite']['test']
         count = 0
         for k in data:
             if data[0]['status']['@critical'] == "yes":
                 count = count + 1
         c_criti += count
-        data3 = i['data']["robot"]["suite"]["status"]
+        data3 = i["robot"]["suite"]["status"]
         s_time = data3["@starttime"]
         e_time = data3["@endtime"]
         test_count.extend([{"pass": int(data2['@pass']), "fail": int(data2['@fail']), "s_time": s_time,
@@ -66,11 +67,11 @@ def get_count():
 
 def get_tests():
     test_cases = []
-    output1 = curr.find({}, {"date": x, "_id": 0, "date": 0})
-    l1 = [i for i in output1]
+    output1 = curr.find({"date": x})
+    l1 = [i['data'] for i in output1]
     for i in l1:
-        name = i['data']['robot']['suite']['@name']
-        data = i['data']['robot']['suite']['test']
+        name = i['robot']['suite']['@name']
+        data = i['robot']['suite']['test']
         p_test = []
         f_test = []
         for j in range(len(data)):

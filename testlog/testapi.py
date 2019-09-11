@@ -6,7 +6,6 @@ import sys
 
 @app.route("/", methods=["GET"])
 def get_data():
-    #data_insert(root=sys.argv[1])
     data1 = data_extract()
     length = len(data1)
     return jsonify({"tests": length})
